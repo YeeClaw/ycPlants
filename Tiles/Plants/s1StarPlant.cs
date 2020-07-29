@@ -1,12 +1,11 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 using Terraria;
+using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 
-
-namespace ycPlants.Tiles.StarPlants
+namespace ycPlants.Tiles.Plants
 {
-    public class StarPlants : ModTile
+    public class s1StarPlant : ModTile
     {
         public override void SetDefaults()
         {

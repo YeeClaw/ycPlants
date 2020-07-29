@@ -9,3 +9,7 @@ ycPlants.csproj
 ycPlants.sln
 
 .vs/
+
+obj/
+
+ycPlants.cs

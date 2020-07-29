@@ -13,6 +13,7 @@ namespace ycPlants.Tiles.StarPlants
             Main.tileSolid[Type] = false;
             Main.tileLavaDeath[Type] = true;
             Main.tileWaterDeath[Type] = true;
+            Main.tileBlockLight[Type] = false;
         }
     }
 }

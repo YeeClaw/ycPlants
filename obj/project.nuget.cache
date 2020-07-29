@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "dQRCES3bWIevgK/dj6L+1/rGP22T2t5zoOuPmAjNcqce7LGqvuq/xVLX8fWEmAmKX0zTV0IEYJ2hz2Ncgewy9Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Austin\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\ycPlants\\ycPlants.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Austin\\.nuget\\packages\\tmodloader.codeassist\\0.1.1\\tmodloader.codeassist.0.1.1.nupkg.sha512"
+  ],
+  "logs": []
+}

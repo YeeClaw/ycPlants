@@ -17,6 +17,7 @@ namespace ycPlants.Items.Seeds
         {
             item.width = 18;
             item.height = 16;
+            item.createTile = mod.TileType("s1StarPlant");
         }
     }
 }

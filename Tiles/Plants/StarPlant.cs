@@ -40,7 +40,7 @@ namespace ycPlants.Tiles.Plants
             AddMapEntry(new Color(236, 247, 20), name);
         }
 
-        // changes direction depending on where the player is facing (currently not functional
+        // changes direction depending on where the player is facing
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
             if (i % 2 == 1)

@@ -6,7 +6,7 @@ using Terraria.ObjectData;
 
 namespace ycPlants.Tiles.Plants
 {
-    public class s1StarPlant : ModTile
+    public class StarPlant : ModTile
     {
         public override void SetDefaults()
         {

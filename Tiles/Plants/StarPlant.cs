@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework.Graphics;
+using ycPlants.Items.Seeds;
 
 namespace ycPlants.Tiles.Plants
 {
@@ -16,6 +17,7 @@ namespace ycPlants.Tiles.Plants
 
     public class StarPlant : ModTile
     {
+        private const int FrameWidth = 18;
         public override void SetDefaults()
         {
             // plant properties
@@ -27,7 +29,7 @@ namespace ycPlants.Tiles.Plants
             Main.tileCut[Type] = true;
             Main.tileNoFail[Type] = true;
 
-            //
+            // adds tile
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
             TileObjectData.addTile(Type);
 
@@ -45,6 +47,11 @@ namespace ycPlants.Tiles.Plants
                 spriteEffects = SpriteEffects.FlipHorizontally;
         }
 
-
+        // grabs plant stage. Currently unimplemented
+        private PlantStage GetStage(int i, int j)
+        {
+            Tile tile = Framing.GetTileSafely(i, j);
+            return (PlantStage)(tile.frameX / FrameWidth);
+        }
     }
 }

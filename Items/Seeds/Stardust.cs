@@ -2,6 +2,9 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using Terraria.ID;
+using static Terraria.ModLoader.ModContent;
+using ycPlants.Tiles.Plants;
 
 namespace ycPlants.Items.Seeds
 {
@@ -17,7 +20,15 @@ namespace ycPlants.Items.Seeds
         {
             item.width = 18;
             item.height = 16;
-            item.createTile = mod.TileType("StarPlant");
+            item.autoReuse = true;
+            item.useTurn = true;
+            item.useStyle = ItemUseStyleID.SwingThrow;
+            item.useAnimation = 15;
+            item.useTime = 10;
+            item.maxStack = 99;
+            item.consumable = true;
+            item.placeStyle = 0;
+            item.createTile = TileType<Tiles.Plants.StarPlant>();
         }
     }
 }

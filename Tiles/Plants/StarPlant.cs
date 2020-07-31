@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework.Graphics;
 using ycPlants.Items.Seeds;
+using static Terraria.ModLoader.ModContent;
+using Terraria.ID;
 
 namespace ycPlants.Tiles.Plants
 {
@@ -46,6 +48,16 @@ namespace ycPlants.Tiles.Plants
         {
             if (i % 2 == 0)
                 spriteEffects = SpriteEffects.FlipHorizontally;
+        }
+
+        // adds Stardust and Fallen stars as drop items
+        public override bool Drop(int i, int j)
+        {
+            PlantStage stage = GetStage(i, j);
+            if (stage == PlantStage.Grown)
+                Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemType<Items.Seeds.Stardust>(), ItemID.FallenStar);
+
+            return false;
         }
 
         // grabs plant stage. Currently unimplemented

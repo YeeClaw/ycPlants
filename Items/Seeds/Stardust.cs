@@ -4,7 +4,6 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
-using ycPlants.Tiles.Plants;
 
 namespace ycPlants.Items.Seeds
 {

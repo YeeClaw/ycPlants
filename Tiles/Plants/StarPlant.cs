@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
 using Terraria.ObjectData;
 using Microsoft.Xna.Framework.Graphics;
-using ycPlants.Items.Seeds;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
 
@@ -43,6 +42,22 @@ namespace ycPlants.Tiles.Plants
             AddMapEntry(new Color(236, 247, 20), name);
         }
 
+        public override void RandomUpdate(int i, int j)
+        {
+            Tile tile = Framing.GetTileSafely(i, j); //Grabs specific tile instance
+            PlantStage stage = GetStage(i, j);
+
+            // Stops frame instance from going past the actual sprite
+            if (stage != PlantStage.Grown)
+            {
+                tile.frameX += FrameWidth;
+
+                // Syncs frame change for multiplayer
+                if (Main.netMode != NetmodeID.SinglePlayer)
+                    NetMessage.SendTileSquare(-1, i, j, 1);
+            }
+        }
+
         // changes direction depending on where the player is facing
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
@@ -60,7 +75,7 @@ namespace ycPlants.Tiles.Plants
             return false;
         }
 
-        // grabs plant stage. Currently unimplemented
+        // grabs plant stage
         private PlantStage GetStage(int i, int j)
         {
             Tile tile = Framing.GetTileSafely(i, j);

@@ -30,12 +30,16 @@ namespace ycPlants.Tiles.Plants
             Main.tileFrameImportant[Type] = true;
             Main.tileCut[Type] = true;
             Main.tileNoFail[Type] = true;
-            Main.tileNoAttach[Type] = true;
-            Main.tileMergeDirt[Type] = true;
 
             // adds tile
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
             TileObjectData.newTile.DrawYOffset = 2;
+            TileObjectData.newTile.AnchorValidTiles = new int[]
+            {
+                TileID.Cloud,
+                TileID.RainCloud,
+                TileID.SnowCloud
+            };
             TileObjectData.addTile(Type);
 
             // map visibility

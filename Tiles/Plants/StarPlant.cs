@@ -8,6 +8,7 @@ using ycPlants.Items.Seeds;
 
 namespace ycPlants.Tiles.Plants
 {
+    // enum for different stages of plant growth
     public enum PlantStage : byte
     {
         Planted,
@@ -43,7 +44,7 @@ namespace ycPlants.Tiles.Plants
         // changes direction depending on where the player is facing
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
-            if (i % 2 == 1)
+            if (i % 2 == 0)
                 spriteEffects = SpriteEffects.FlipHorizontally;
         }
 

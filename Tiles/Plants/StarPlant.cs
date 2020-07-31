@@ -44,24 +44,24 @@ namespace ycPlants.Tiles.Plants
 
         public override void RandomUpdate(int i, int j)
         {
-            Tile tile = Framing.GetTileSafely(i, j); //Grabs specific tile instance
+            Tile Btile = Framing.GetTileSafely(i, j); //Grabs specific tile instance for the bottom frame
+            Tile Ttile = Framing.GetTileSafely(i, (j - 1)); // Only gets the top tile
             PlantStage stage = GetStage(i, j);
 
-            // Stops frame instance from going past the actual sprite
-            if (stage != PlantStage.Grown)
+            if (stage != PlantStage.Grown) // Stops frame instance from going past the actual sprite
             {
-                tile.frameX += FrameWidth;
-
-                // Syncs frame change for multiplayer
-                if (Main.netMode != NetmodeID.SinglePlayer)
-                    NetMessage.SendTileSquare(-1, i, j, 1);
+                if (Btile.frameY != 0)
+                {
+                    Btile.frameX += FrameWidth;
+                    Ttile.frameX += FrameWidth;
+                }
             }
         }
 
         // changes direction depending on where the player is facing
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
-            if (i % 2 == 0)
+            if (i % 2 == 1)
                 spriteEffects = SpriteEffects.FlipHorizontally;
         }
 
@@ -70,7 +70,10 @@ namespace ycPlants.Tiles.Plants
         {
             PlantStage stage = GetStage(i, j);
             if (stage == PlantStage.Grown)
-                Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemType<Items.Seeds.Stardust>(), ItemID.FallenStar);
+            {
+                Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemType<Items.Seeds.Stardust>(), 2);
+                Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemID.FallenStar);
+            }
 
             return false;
         }

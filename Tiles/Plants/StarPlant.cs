@@ -8,6 +8,7 @@ using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using ycPlants.Dust;
 
 namespace ycPlants.Tiles.Plants
 {
@@ -33,6 +34,7 @@ namespace ycPlants.Tiles.Plants
             Main.tileCut[Type] = true;
             Main.tileNoFail[Type] = true;
             Main.tileNoAttach[Type] = true;
+            Main.tileLighted[Type] = true;
 
             // adds tile
             TileObjectData.newTile.Width = 1;
@@ -49,6 +51,7 @@ namespace ycPlants.Tiles.Plants
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.newTile.LavaDeath = true;
             TileObjectData.newTile.DrawYOffset = 2;
+            dustType = DustType<Sparkle>();
             TileObjectData.newTile.AnchorValidTiles = new int[]
             {
                 TileID.Cloud,
@@ -78,6 +81,16 @@ namespace ycPlants.Tiles.Plants
                     Ttile.frameX += FrameWidth;
                 }
             }
+
+            //If in multiplayer, sync the frame change
+            if (Main.netMode != NetmodeID.SinglePlayer)
+                NetMessage.SendTileSquare(-1, i, j, 1);
+        }
+
+        // dust for the crop
+        public override void NumDust(int i, int j, bool fail, ref int num)
+        {
+            num = Main.rand.Next(1, 3);
         }
 
         // changes direction depending on where the tile is placed in world coordinates

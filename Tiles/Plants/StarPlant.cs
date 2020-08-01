@@ -6,6 +6,8 @@ using Terraria.ObjectData;
 using Microsoft.Xna.Framework.Graphics;
 using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
+using Terraria.DataStructures;
+using Terraria.Enums;
 
 namespace ycPlants.Tiles.Plants
 {
@@ -30,9 +32,22 @@ namespace ycPlants.Tiles.Plants
             Main.tileFrameImportant[Type] = true;
             Main.tileCut[Type] = true;
             Main.tileNoFail[Type] = true;
+            Main.tileNoAttach[Type] = true;
 
             // adds tile
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x2);
+            TileObjectData.newTile.Width = 1;
+            TileObjectData.newTile.Height = 2;
+            TileObjectData.newTile.Origin = new Point16(0, 1);
+            TileObjectData.newTile.UsesCustomCanPlace = true;
+            TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
+            TileObjectData.newTile.CoordinateHeights = new int[2]
+            {
+                16,
+                16
+            };
+            TileObjectData.newTile.CoordinateWidth = 16;
+            TileObjectData.newTile.CoordinatePadding = 2;
+            TileObjectData.newTile.LavaDeath = true;
             TileObjectData.newTile.DrawYOffset = 2;
             TileObjectData.newTile.AnchorValidTiles = new int[]
             {
@@ -65,7 +80,7 @@ namespace ycPlants.Tiles.Plants
             }
         }
 
-        // changes direction depending on where the player is facing
+        // changes direction depending on where the tile is placed in world coordinates
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
             if (i % 2 == 1)

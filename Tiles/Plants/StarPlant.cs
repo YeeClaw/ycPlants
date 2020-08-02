@@ -60,6 +60,11 @@ namespace ycPlants.Tiles.Plants
             };
             TileObjectData.addTile(Type);
 
+            // dust and sound
+            dustType = DustType<Sparkle>();
+            soundType = SoundID.Grass;
+            soundStyle = 1;
+
             // map visibility
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Star crop");
@@ -85,12 +90,6 @@ namespace ycPlants.Tiles.Plants
             //If in multiplayer, sync the frame change
             if (Main.netMode != NetmodeID.SinglePlayer)
                 NetMessage.SendTileSquare(-1, i, j, 1);
-        }
-
-        // dust for the crop
-        public override void NumDust(int i, int j, bool fail, ref int num)
-        {
-            num = Main.rand.Next(1, 3);
         }
 
         // changes direction depending on where the tile is placed in world coordinates

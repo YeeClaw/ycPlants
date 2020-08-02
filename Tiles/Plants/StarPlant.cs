@@ -92,6 +92,14 @@ namespace ycPlants.Tiles.Plants
                 NetMessage.SendTileSquare(-1, i, j, 1);
         }
 
+        // adds glow to the crop
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        {
+            r = 0.5f;
+            g = 0.42f;
+            b = 0.05f;
+        }
+
         // changes direction depending on where the tile is placed in world coordinates
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {

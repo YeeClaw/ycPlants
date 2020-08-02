@@ -12,7 +12,7 @@ namespace ycPlants.Items.Seeds
         public override void SetStaticDefaults()
         {
             // item description
-            Tooltip.SetDefault("A seed from the heavens!");
+            Tooltip.SetDefault("A seed from the heavens. \n(Only harvest at night!)");
         }
 
         public override void SetDefaults()

@@ -31,10 +31,10 @@ namespace ycPlants.Tiles.Plants
             Main.tileWaterDeath[Type] = true;
             Main.tileBlockLight[Type] = false;
             Main.tileFrameImportant[Type] = true;
-            Main.tileCut[Type] = true;
             Main.tileNoFail[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLighted[Type] = true;
+            Main.tileCut[Type] = true;
 
             // adds tile
             TileObjectData.newTile.Width = 1;
@@ -60,12 +60,10 @@ namespace ycPlants.Tiles.Plants
             };
             TileObjectData.addTile(Type);
 
-            // dust and sound
             dustType = DustType<Sparkle>();
             soundType = SoundID.Grass;
             soundStyle = 1;
 
-            // map visibility
             ModTranslation name = CreateMapEntryName();
             name.SetDefault("Star crop");
 
@@ -74,7 +72,7 @@ namespace ycPlants.Tiles.Plants
 
         public override void RandomUpdate(int i, int j)
         {
-            Tile Btile = Framing.GetTileSafely(i, j); //Grabs specific tile instance for the bottom frame
+            Tile Btile = Framing.GetTileSafely(i, j);
             Tile Ttile = Framing.GetTileSafely(i, (j - 1)); // Only gets the top tile
             PlantStage stage = GetStage(i, j);
 
@@ -92,7 +90,6 @@ namespace ycPlants.Tiles.Plants
                 NetMessage.SendTileSquare(-1, i, j, 1);
         }
 
-        // adds glow to the crop
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
             r = 0.5f;
@@ -111,10 +108,19 @@ namespace ycPlants.Tiles.Plants
         public override bool Drop(int i, int j)
         {
             PlantStage stage = GetStage(i, j);
-            if (stage == PlantStage.Grown)
+            if (stage == PlantStage.Grown && Main.LocalPlayer.HeldItem.type == ItemID.Sickle)
             {
-                Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemType<Items.Seeds.Stardust>(), 2);
-                Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemID.FallenStar);
+                Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemType<Items.Seeds.Stardust>(), 1);
+                Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemID.FallenStar, 0);
+            } else
+            {
+                Random rnd = new Random();
+                int stardrop = rnd.Next(1, 11);
+
+                if (stardrop % 2 == 0)
+                {
+                    Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemType<Items.Seeds.Stardust>(), 0);
+                }
             }
 
             return false;

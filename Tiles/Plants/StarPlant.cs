@@ -82,8 +82,6 @@ namespace ycPlants.Tiles.Plants
                 {
                     Btile.frameX += FrameWidth;
                     Ttile.frameX += FrameWidth;
-                    stage = GetStage(i, j);
-                    Main.NewText($"{stage}");
                 }
             }
 
@@ -96,7 +94,6 @@ namespace ycPlants.Tiles.Plants
             // doesn't use GetStage due to coordinate complications
             PlantStage stage = (PlantStage)(frameX / FrameWidth);
 
-            Main.NewText($"Kill stage is: {stage}");
             if (Main.LocalPlayer.HeldItem.type == ItemID.Sickle && stage == PlantStage.Grown)
             {
                 Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stardust>(), 2);

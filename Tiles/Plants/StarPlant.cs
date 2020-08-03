@@ -12,7 +12,6 @@ using ycPlants.Dust;
 
 namespace ycPlants.Tiles.Plants
 {
-    // enum for different stages of plant growth
     public enum PlantStage : byte
     {
         Planted,
@@ -51,6 +50,7 @@ namespace ycPlants.Tiles.Plants
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.newTile.LavaDeath = true;
             TileObjectData.newTile.DrawYOffset = 2;
+            TileObjectData.newTile.StyleHorizontal = true;
             dustType = DustType<Sparkle>();
             TileObjectData.newTile.AnchorValidTiles = new int[]
             {
@@ -73,21 +73,45 @@ namespace ycPlants.Tiles.Plants
         public override void RandomUpdate(int i, int j)
         {
             Tile Btile = Framing.GetTileSafely(i, j);
-            Tile Ttile = Framing.GetTileSafely(i, (j - 1)); // Only gets the top tile
+            Tile Ttile = Framing.GetTileSafely(i, (j - 1));
             PlantStage stage = GetStage(i, j);
 
-            if (stage != PlantStage.Grown) // Stops frame instance from going past the actual sprite
+            if (stage != PlantStage.Grown)
             {
                 if (Btile.frameY != 0)
                 {
                     Btile.frameX += FrameWidth;
                     Ttile.frameX += FrameWidth;
+                    stage = GetStage(i, j);
+                    Main.NewText($"{stage}");
                 }
             }
 
             //If in multiplayer, sync the frame change
             if (Main.netMode != NetmodeID.SinglePlayer)
                 NetMessage.SendTileSquare(-1, i, j, 1);
+        }
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            // doesn't use GetStage due to coordinate complications
+            PlantStage stage = (PlantStage)(frameX / FrameWidth);
+
+            Main.NewText($"Kill stage is: {stage}");
+            if (Main.LocalPlayer.HeldItem.type == ItemID.Sickle && stage == PlantStage.Grown)
+            {
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stardust>(), 2);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemID.FallenStar, 1);
+            }
+            else
+            {
+                Random rnd = new Random();
+                int stardrop = rnd.Next(1, 11);
+
+                if (stardrop % 2 == 0)
+                {
+                    Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stardust>(), 1);
+                }
+            }
         }
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
@@ -97,36 +121,12 @@ namespace ycPlants.Tiles.Plants
             b = 0.05f;
         }
 
-        // changes direction depending on where the tile is placed in world coordinates
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
             if (i % 2 == 1)
                 spriteEffects = SpriteEffects.FlipHorizontally;
         }
 
-        // adds Stardust and Fallen stars as drop items
-        public override bool Drop(int i, int j)
-        {
-            PlantStage stage = GetStage(i, j);
-            if (stage == PlantStage.Grown && Main.LocalPlayer.HeldItem.type == ItemID.Sickle)
-            {
-                Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemType<Items.Seeds.Stardust>(), 1);
-                Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemID.FallenStar, 0);
-            } else
-            {
-                Random rnd = new Random();
-                int stardrop = rnd.Next(1, 11);
-
-                if (stardrop % 2 == 0)
-                {
-                    Item.NewItem(new Vector2(i, j).ToWorldCoordinates(), ItemType<Items.Seeds.Stardust>(), 0);
-                }
-            }
-
-            return false;
-        }
-
-        // grabs plant stage
         private PlantStage GetStage(int i, int j)
         {
             Tile tile = Framing.GetTileSafely(i, j);

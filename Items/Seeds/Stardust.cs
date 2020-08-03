@@ -29,5 +29,15 @@ namespace ycPlants.Items.Seeds
             item.placeStyle = 0;
             item.createTile = TileType<Tiles.Plants.StarPlant>();
         }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.FallenStar, 3);
+            recipe.AddIngredient(ItemID.Cloud, 1);
+            recipe.AddTile(TileID.Bottles);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

@@ -1,4 +1,4 @@
 displayName = Celestial Crops
 author = YeeClaw
-version = 1.0
+version = 1.0.0.1
 homepage = https://forums.terraria.org/index.php?threads/celestial-crops.96670/

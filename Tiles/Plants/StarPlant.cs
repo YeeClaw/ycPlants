@@ -89,12 +89,38 @@ namespace ycPlants.Tiles.Plants
             if (Main.netMode != NetmodeID.SinglePlayer)
                 NetMessage.SendTileSquare(-1, i, j, 1);
         }
+
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
+            // uses nearest player to the crop instead of local player for multiplayer support
+            float MultiCompat(int tileX, int tileY)
+            {
+                float shortestDistance = float.MaxValue;
+                float shortest = null;
+
+                for (i = 0; i < Main.maxPlayers; i++)
+                {
+                    Player player = Main.player[i];
+
+                    if (player.active && !player.dead && player.HeldItem.type == ItemID.Sickle && player.itemAnimation > 0)
+                    {
+                        float currentDistance = player.DistanceSQ(new Point16(tileX, tileY + 1).ToWorldCoordinates(8, 8));
+                        if (currentDistance < shortestDistance)
+                        {
+                            shortest = shortestDistance;
+                            return shortest;
+                            
+                        }
+                    }
+                }
+                return shortest;
+            }
+            float nearest = MultiCompat(i, j);
+
             // doesn't use GetStage due to coordinate complications
             PlantStage stage = (PlantStage)(frameX / FrameWidth);
 
-            if (Main.LocalPlayer.HeldItem.type == ItemID.Sickle && stage == PlantStage.Grown)
+            if (nearest <= 4 * 16 && stage == PlantStage.Grown)
             {
                 Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stardust>(), 2);
                 Item.NewItem(i * 16, j * 16, 16, 32, ItemID.FallenStar, 1);

@@ -87,53 +87,45 @@ namespace ycPlants.Tiles.Plants
 
             //If in multiplayer, sync the frame change
             if (Main.netMode != NetmodeID.SinglePlayer)
-                NetMessage.SendTileSquare(-1, i, j, 1);
+                NetMessage.SendTileSquare(-1, i - 1, j - 1, 3);
+        }
+
+        // uses nearest player to the crop instead of local player for multiplayer support
+        float MultiCompat(int tileX, int tileY)
+        {
+            float shortestDistance = float.MaxValue;
+
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player player = Main.player[i];
+
+                if (player.active && !player.dead && player.HeldItem.type == ItemID.Sickle && player.itemAnimation > 0)
+                {
+                    float currentDistance = player.DistanceSQ(new Point16(tileX, tileY + 1).ToWorldCoordinates(8, 8));
+                    if (currentDistance < shortestDistance)
+                    {
+                        shortestDistance = currentDistance;
+                    }
+                }
+            }
+            return shortestDistance;
         }
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            // uses nearest player to the crop instead of local player for multiplayer support
-            float MultiCompat(int tileX, int tileY)
-            {
-                float shortestDistance = float.MaxValue;
-                float shortest = null;
-
-                for (i = 0; i < Main.maxPlayers; i++)
-                {
-                    Player player = Main.player[i];
-
-                    if (player.active && !player.dead && player.HeldItem.type == ItemID.Sickle && player.itemAnimation > 0)
-                    {
-                        float currentDistance = player.DistanceSQ(new Point16(tileX, tileY + 1).ToWorldCoordinates(8, 8));
-                        if (currentDistance < shortestDistance)
-                        {
-                            shortest = shortestDistance;
-                            return shortest;
-                            
-                        }
-                    }
-                }
-                return shortest;
-            }
             float nearest = MultiCompat(i, j);
 
             // doesn't use GetStage due to coordinate complications
             PlantStage stage = (PlantStage)(frameX / FrameWidth);
 
-            if (nearest <= 4 * 16 && stage == PlantStage.Grown)
+            if (nearest <= 64 * 64 && stage == PlantStage.Grown)
             {
-                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stardust>(), 2);
                 Item.NewItem(i * 16, j * 16, 16, 32, ItemID.FallenStar, 1);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stardust>(), 2);
             }
-            else
+            else if (Main.rand.NextBool())
             {
-                Random rnd = new Random();
-                int stardrop = rnd.Next(1, 11);
-
-                if (stardrop % 2 == 0)
-                {
-                    Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stardust>(), 1);
-                }
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stardust>(), 1);
             }
         }
 

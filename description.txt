@@ -1,1 +1,9 @@
 Celestial Crops is a mod that aims to add more useful agriculture to the game other than potions.
+
+
+Getting started:
+
+The homepage has a current list of all crops and seeds available in the game! Each and every crop has their own conditions to grow, so see the thread for specific info. However, something that is universal about all crops is that
+every single one of them must be harvested at full growth and with a sickle in order to drop their respective items.
+
+If you find any bugs or just want general discussion of the mod, feel free to join the discord linked in the thread (homepage)

@@ -7,17 +7,17 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ycPlants.Items.Seeds
 {
-    public class Stardust : ModItem
+    public class LeadSeed : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("A seed from the heavens. \n(Must grow on cloud, and it's only harvest at night!)");
+            Tooltip.SetDefault("WARNING! DO NOT CONSUME \n(Grows on cavern ceilings on lead ore)");
         }
 
         public override void SetDefaults()
         {
-            item.width = 18;
-            item.height = 16;
+            item.height = 18;
+            item.width = 20;
             item.autoReuse = true;
             item.useTurn = true;
             item.useStyle = ItemUseStyleID.SwingThrow;
@@ -26,14 +26,14 @@ namespace ycPlants.Items.Seeds
             item.maxStack = 99;
             item.consumable = true;
             item.placeStyle = 0;
-            item.createTile = TileType<Tiles.Plants.StarPlant>();
+            item.createTile = TileType<Tiles.Plants.LeadPlant>();
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.FallenStar, 3);
-            recipe.AddIngredient(ItemID.Cloud, 1);
+            recipe.AddIngredient(ItemID.LeadOre, 3);
+            recipe.AddIngredient(ItemID.StoneBlock, 2);
             recipe.AddTile(TileID.Bottles);
             recipe.SetResult(this);
             recipe.AddRecipe();

@@ -11,7 +11,7 @@ namespace ycPlants.Items.Seeds
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("WARNING! DO NOT CONSUME \n(Grows on cavern ceilings on lead ore)");
+            Tooltip.SetDefault("WARNING! DO NOT CONSUME \n(Grows upside down on lead ore)");
         }
 
         public override void SetDefaults()

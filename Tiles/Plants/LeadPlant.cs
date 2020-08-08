@@ -34,7 +34,7 @@ namespace ycPlants.Tiles.Plants
             TileObjectData.newTile.Height = 2;
             TileObjectData.newTile.Origin = new Point16(0, 1);
             TileObjectData.newTile.UsesCustomCanPlace = true;
-            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidSide, TileObjectData.newTile.Width, 0);
+            TileObjectData.newTile.AnchorTop = new AnchorData(AnchorType.SolidTile | AnchorType.SolidBottom, TileObjectData.newTile.Width, 0);
             TileObjectData.newTile.CoordinateHeights = new int[2]
             {
                 16,
@@ -43,19 +43,25 @@ namespace ycPlants.Tiles.Plants
             TileObjectData.newTile.CoordinateWidth = 16;
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.newTile.LavaDeath = false;
-            TileObjectData.newTile.DrawYOffset = 2;
-            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.DrawYOffset = -2;
             dustType = DustType<Sparkle>();
             TileObjectData.newTile.AnchorValidTiles = new int[]
             {
                 TileID.Lead
             };
             TileObjectData.addTile(Type);
+
+            ModTranslation name = CreateMapEntryName();
+            name.SetDefault("Lead Stalactite");
+
+            AddMapEntry(new Color(49, 70, 84), name);
         }
 
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
-            spriteEffects = SpriteEffects.FlipVertically;
+            if (i % 2 == 1)
+                spriteEffects = SpriteEffects.FlipHorizontally;
         }
+
     }
 }

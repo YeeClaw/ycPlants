@@ -14,7 +14,7 @@ namespace ycPlants.Tiles.Plants
 {
     public class LeadPlant : ModTile
     {
-        private const int frameWidth = 18;
+        private const int FrameWidth = 18;
 
         public override void SetDefaults()
         {
@@ -44,7 +44,6 @@ namespace ycPlants.Tiles.Plants
             TileObjectData.newTile.CoordinatePadding = 2;
             TileObjectData.newTile.LavaDeath = false;
             TileObjectData.newTile.DrawYOffset = -2;
-            dustType = DustType<Sparkle>();
             TileObjectData.newTile.AnchorValidTiles = new int[]
             {
                 TileID.Lead
@@ -57,11 +56,81 @@ namespace ycPlants.Tiles.Plants
             AddMapEntry(new Color(49, 70, 84), name);
         }
 
+        public override void RandomUpdate(int i, int j)
+        {
+            Tile Btile = Framing.GetTileSafely(i, j);
+            Tile Ttile = Framing.GetTileSafely(i, (j - 1));
+            PlantStage stage = GetStage(i, j);
+
+            if (stage != PlantStage.Grown)
+            {
+                if (Btile.frameY != 0)
+                {
+                    Btile.frameX += FrameWidth;
+                    Ttile.frameX += FrameWidth;
+                }
+            }
+
+            if (Main.netMode != NetmodeID.SinglePlayer)
+                NetMessage.SendTileSquare(-1, i - 1, j - 1, 3);
+        }
+
+        float MultiCompat(int tileX, int tileY)
+        {
+            float shortestDistance = float.MaxValue;
+
+            for (int i = 0; i < Main.maxPlayers; i++)
+            {
+                Player player = Main.player[i];
+
+                if (player.active && !player.dead && player.HeldItem.pick > 0 && player.itemAnimation > 0)
+                {
+                    float currentDistance = player.DistanceSQ(new Point16(tileX, tileY + 1).ToWorldCoordinates(8, 8));
+                    if (currentDistance < shortestDistance)
+                    {
+                        shortestDistance = currentDistance;
+                    }
+                }
+            }
+            return shortestDistance;
+        }
+
+        public override void KillMultiTile(int i, int j, int frameX, int frameY)
+        {
+            float nearestB = MultiCompat(i, j);
+            float nearestT = MultiCompat(i, j - 1);
+
+            PlantStage stage = (PlantStage)(frameX / FrameWidth);
+
+            if (nearestB <= 64 * 64 && nearestT <= 64 * 64 && stage == PlantStage.Grown)
+            {
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemID.LeadOre, 2);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.LeadSeed>(), 2);
+            }
+            else if (Main.rand.NextBool())
+            {
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.LeadSeed>(), 1);
+            }
+
+        }
+
+        public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
+        {
+            r = 0.2f;
+            g = 0.42f;
+            b = 0.4f;
+        }
+
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)
         {
             if (i % 2 == 1)
                 spriteEffects = SpriteEffects.FlipHorizontally;
         }
 
+        private PlantStage GetStage(int i, int j)
+        {
+            Tile tile = Framing.GetTileSafely(i, j);
+            return (PlantStage)(tile.frameX / FrameWidth);
+        }
     }
 }

@@ -64,7 +64,7 @@ namespace ycPlants.Tiles.Plants
             soundStyle = 1;
 
             ModTranslation name = CreateMapEntryName();
-            name.SetDefault("Star crop");
+            name.SetDefault("Star Crop");
 
             AddMapEntry(new Color(236, 247, 20), name);
         }

@@ -33,7 +33,6 @@ namespace ycPlants.Tiles.Plants
             Main.tileNoFail[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLighted[Type] = true;
-            Main.tileCut[Type] = true;
 
             // adds tile
             TileObjectData.newTile.Width = 1;
@@ -99,7 +98,7 @@ namespace ycPlants.Tiles.Plants
             {
                 Player player = Main.player[i];
 
-                if (player.active && !player.dead && player.HeldItem.type == ItemID.Sickle && player.itemAnimation > 0)
+                if (player.active && !player.dead && player.HeldItem.type == ItemType<Items.Tools.CelestialSickle>() && player.itemAnimation > 0)
                 {
                     float currentDistance = player.DistanceSQ(new Point16(tileX, tileY + 1).ToWorldCoordinates(8, 8));
                     if (currentDistance < shortestDistance)
@@ -113,14 +112,15 @@ namespace ycPlants.Tiles.Plants
 
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            float nearest = MultiCompat(i, j);
+            float nearestB = MultiCompat(i, j);
+            float nearestT = MultiCompat(i, j - 1);
 
             // doesn't use GetStage due to coordinate complications
             PlantStage stage = (PlantStage)(frameX / FrameWidth);
 
-            if (nearest <= 64 * 64 && stage == PlantStage.Grown)
+            if (nearestB <= 84 * 84 && nearestT <= 84 * 84 && stage == PlantStage.Grown)
             {
-                Item.NewItem(i * 16, j * 16, 16, 32, ItemID.FallenStar, 1);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemID.FallenStar, 3);
                 Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stardust>(), 2);
             }
             else if (Main.rand.NextBool())

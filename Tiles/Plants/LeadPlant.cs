@@ -102,9 +102,9 @@ namespace ycPlants.Tiles.Plants
 
             PlantStage stage = (PlantStage)(frameX / FrameWidth);
 
-            if (nearestB <= 64 * 64 && nearestT <= 64 * 64 && stage == PlantStage.Grown)
+            if (nearestB <= 106 * 106 && nearestT <= 106 * 106 && stage == PlantStage.Grown)
             {
-                Item.NewItem(i * 16, j * 16, 16, 32, ItemID.LeadOre, 2);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemID.LeadOre, 3);
                 Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.LeadSeed>(), 2);
             }
             else if (Main.rand.NextBool())

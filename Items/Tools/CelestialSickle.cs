@@ -29,5 +29,16 @@ namespace ycPlants.Items.Tools
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
         }
+
+        public override void AddRecipes()
+        {
+            ModRecipe recipe = new ModRecipe(mod);
+            recipe.AddIngredient(ItemID.Sickle, 1);
+            recipe.AddIngredient(ItemID.ManaCrystal, 2);
+            recipe.AddIngredient(ItemID.FallenStar, 3);
+            recipe.AddTile(TileID.Anvils);
+            recipe.SetResult(this);
+            recipe.AddRecipe();
+        }
     }
 }

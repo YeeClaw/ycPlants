@@ -114,9 +114,9 @@ namespace ycPlants.Tiles.Plants
 
         public override void ModifyLight(int i, int j, ref float r, ref float g, ref float b)
         {
-            r = 0.3f;
-            g = 0.42f;
-            b = 0.3f;
+            r = 0.40f;
+            g = 0.35f;
+            b = 0.1f;
         }
 
         public override void SetSpriteEffects(int i, int j, ref SpriteEffects spriteEffects)

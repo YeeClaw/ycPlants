@@ -26,7 +26,7 @@ namespace ycPlants.Items.Seeds.Misc
             item.maxStack = 99;
             item.consumable = true;
             item.placeStyle = 0;
-            item.createTile = TileType<Tiles.Plants.StarPlant>();
+            item.createTile = TileType<Tiles.Plants.Misc.StarPlant>();
         }
 
         public override void AddRecipes()

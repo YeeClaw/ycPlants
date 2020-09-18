@@ -8,9 +8,9 @@ using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.Enums;
-using ycPlants.Dust;
+using ycPlants.Tiles.Plants.Misc;
 
-namespace ycPlants.Tiles.Plants
+namespace ycPlants.Tiles.Plants.Stalactites
 {
     public class LeadPlant : ModTile
     {
@@ -105,11 +105,11 @@ namespace ycPlants.Tiles.Plants
             if (nearestB <= 106 * 106 && nearestT <= 106 * 106 && stage == PlantStage.Grown)
             {
                 Item.NewItem(i * 16, j * 16, 16, 32, ItemID.LeadOre, 3);
-                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.LeadSeed>(), 2);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stalseeds.LeadSeed>(), 2);
             }
             else if (Main.rand.NextBool())
             {
-                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.LeadSeed>(), 1);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stalseeds.LeadSeed>(), 1);
             }
 
         }

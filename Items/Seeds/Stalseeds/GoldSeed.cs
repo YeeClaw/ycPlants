@@ -26,7 +26,7 @@ namespace ycPlants.Items.Seeds.Stalseeds
             item.maxStack = 99;
             item.consumable = true;
             item.placeStyle = 0;
-            item.createTile = TileType<Tiles.Plants.GoldPlant>();
+            item.createTile = TileType<Tiles.Plants.Stalactites.GoldPlant>();
         }
 
         public override void AddRecipes()

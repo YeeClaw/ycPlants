@@ -7,8 +7,9 @@ using static Terraria.ModLoader.ModContent;
 using Terraria.ID;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using ycPlants.Tiles.Plants.Misc;
 
-namespace ycPlants.Tiles.Plants
+namespace ycPlants.Tiles.Plants.Stalactites
 {
     class CopperPlant : ModTile
     {
@@ -103,11 +104,11 @@ namespace ycPlants.Tiles.Plants
             if (nearestB <= 106 * 106 && nearestT <= 106 * 106 && stage == PlantStage.Grown)
             {
                 Item.NewItem(i * 16, j * 16, 16, 32, ItemID.CopperOre, 3);
-                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.CopperSeed>(), 2);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stalseeds.CopperSeed>(), 2);
             }
             else if (Main.rand.NextBool())
             {
-                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.CopperSeed>(), 1);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stalseeds.CopperSeed>(), 1);
             }
 
         }

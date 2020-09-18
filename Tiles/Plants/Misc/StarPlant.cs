@@ -10,7 +10,7 @@ using Terraria.DataStructures;
 using Terraria.Enums;
 using ycPlants.Dust;
 
-namespace ycPlants.Tiles.Plants
+namespace ycPlants.Tiles.Plants.Misc
 {
     public enum PlantStage : byte
     {
@@ -121,11 +121,11 @@ namespace ycPlants.Tiles.Plants
             if (nearestB <= 84 * 84 && nearestT <= 84 * 84 && stage == PlantStage.Grown)
             {
                 Item.NewItem(i * 16, j * 16, 16, 32, ItemID.FallenStar, 3);
-                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stardust>(), 2);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Misc.Stardust>(), 2);
             }
             else if (Main.rand.NextBool())
             {
-                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stardust>(), 1);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Misc.Stardust>(), 1);
             }
         }
 

@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
-namespace ycPlants.Items.Seeds
+namespace ycPlants.Items.Seeds.Misc
 {
     public class Stardust : ModItem
     {

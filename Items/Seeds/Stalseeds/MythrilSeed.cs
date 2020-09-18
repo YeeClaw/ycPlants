@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
-namespace ycPlants.Items.Stalseeds.Seeds
+namespace ycPlants.Items.Seeds.Stalseeds
 {
     class MythrilSeed : ModItem
     {

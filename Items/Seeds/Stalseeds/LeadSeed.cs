@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using static Terraria.ModLoader.ModContent;
 
-namespace ycPlants.Items.Seeds
+namespace ycPlants.Items.Stalseeds.Seeds
 {
     public class LeadSeed : ModItem
     {

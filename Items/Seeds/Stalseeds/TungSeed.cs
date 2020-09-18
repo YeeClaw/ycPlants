@@ -7,7 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ycPlants.Items.Seeds.Stalseeds
 {
-    class TungSeed : ModItem
+    class TungstenSeed : ModItem
     {
         public override void SetStaticDefaults()
         {

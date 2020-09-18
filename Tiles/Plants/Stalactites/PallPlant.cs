@@ -104,11 +104,11 @@ namespace ycPlants.Tiles.Plants.Stalactites
             if (nearestB <= 106 * 106 && nearestT <= 106 * 106 && stage == PlantStage.Grown)
             {
                 Item.NewItem(i * 16, j * 16, 16, 32, ItemID.PalladiumOre, 3);
-                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stalseeds.PallSeed>(), 2);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stalseeds.PalladiumSeed>(), 2);
             }
             else if (Main.rand.NextBool())
             {
-                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stalseeds.PallSeed>(), 1);
+                Item.NewItem(i * 16, j * 16, 16, 32, ItemType<Items.Seeds.Stalseeds.PalladiumSeed>(), 1);
             }
 
         }

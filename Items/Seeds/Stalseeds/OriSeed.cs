@@ -7,7 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ycPlants.Items.Seeds.Stalseeds
 {
-    class OriSeed : ModItem
+    class OrichalcumSeed : ModItem
     {
         public override void SetStaticDefaults()
         {

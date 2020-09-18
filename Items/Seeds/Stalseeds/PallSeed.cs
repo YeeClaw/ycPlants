@@ -7,7 +7,7 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ycPlants.Items.Seeds.Stalseeds
 {
-    class PallSeed : ModItem
+    class PalladiumSeed : ModItem
     {
         public override void SetStaticDefaults()
         {

@@ -7,11 +7,11 @@ using static Terraria.ModLoader.ModContent;
 
 namespace ycPlants.Items.Seeds.Stalseeds
 {
-    class TungstenSeed : ModItem
+    class TitaniumSeed : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Can withstand extreme heat! \n(Grows upside down on tungsten ore)");
+            Tooltip.SetDefault("Basically stainless! \n(Grows upside down on titanium ore)");
         }
 
         public override void SetDefaults()
@@ -26,13 +26,13 @@ namespace ycPlants.Items.Seeds.Stalseeds
             item.maxStack = 99;
             item.consumable = true;
             item.placeStyle = 0;
-            item.createTile = TileType<Tiles.Plants.Stalactites.TungPlant>();
+            item.createTile = TileType<Tiles.Plants.Stalactites.TitaniumPlant>();
         }
 
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.TungstenOre, 3);
+            recipe.AddIngredient(ItemID.TitaniumOre, 5);
             recipe.AddIngredient(ItemID.StoneBlock, 2);
             recipe.AddTile(TileID.Bottles);
             recipe.SetResult(this);
